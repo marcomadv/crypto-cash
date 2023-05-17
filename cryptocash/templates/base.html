@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoCash</title>
+    <link rel="stylesheet" href="/static/pico.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    
+    <header>
+        <div class ="container">
+            <nav>
+                <ul>
+                  <li style="color: rgb(218, 200, 66);"><strong>-CryptoCash-</strong></li>
+                </ul>
+                <ul>
+                  <li><a href="/" role="button">Inicio</a></li>
+                  <li><a href="/purchase" role="button">Compra</a></li>
+                  <li><a href="/status" role="button">Estado</a></li>
+                </ul>
+              </nav>
+
+        </div>
+
+    </header>
+    <section class = "container">
+        {% block section %}   
+        {% endblock %}
+    </section>
+    <footer>
+        <div class ="container" style="color: dimgrey">
+            &reg;2023 CryptoCash - Todos los derechos reservados.
+        </div>
+        
+
+
+    </footer>
+</body>
+</html>

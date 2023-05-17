@@ -1,0 +1,7 @@
+header,footer{
+    background-color: grey;
+    color:var(--primary-inverse);
+    font-size: 0.7em;
+    font-weight: bold;
+
+}
