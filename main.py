@@ -1,0 +1,1 @@
+from cryptocash import app
