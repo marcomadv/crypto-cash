@@ -1,4 +1,30 @@
 {% extends "base.html" %}
 
 {% block section %}
+<table role="grid">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Moneda-From</th>
+            <th>Cantidad-From</th>
+            <th>Moneda-To</th>
+            <th>Cantidad-To</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+        <tr>
+            <td>{{item.date}}</td>
+            <td>{{item.time}}</td>
+            <td>{{item.moneda_from}}</td>
+            <td>{{item.cantidad_from}}</td>
+            <td>{{item.moneda_to}}</td>
+            <td>{{item.cantidad_to}}</td>
+            <td>
+        </tr>
+        {% endfor %}
+        {{crypto}}
+    </tbody>
+</table>
 {% endblock %}
