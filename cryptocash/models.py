@@ -47,7 +47,7 @@ def coinsFrom(): #monedas from
 def sumFrom(moneda): # suma de monedas from
     con = sqlite3.connect("data/movimientos.sqlite")
     cur = con.cursor()
-    res = cur.execute(f"SELECT sum (cantidad_from) from tabla where moneda_from={moneda}")
+    res = cur.execute(f"SELECT sum (cantidad_from) from tabla where moneda_from='{moneda}'")
     resultado = res.fetchall()
     con.close()
     return resultado
@@ -55,16 +55,21 @@ def sumFrom(moneda): # suma de monedas from
 def sumTo(moneda):
     con = sqlite3.connect("data/movimientos.sqlite")
     cur = con.cursor()
-    res = cur.execute(f"SELECT sum (cantidad_to) from tabla where moneda_to={moneda}")
+    res = cur.execute(f"SELECT sum (cantidad_to) from tabla where moneda_to='{moneda}'")
     resultado = res.fetchall()
     con.close()
     return resultado
 
-'''
+#darle una vuelta a esto, no funciona por que los datos son listas
 def balanceCrypto(moneda):
-    resultado = sumFrom(moneda) - sumTo(moneda)
+    op1 = sumFrom(moneda)
+    op1 = float(op1)
+    op2 = sumTo(moneda)
+    op2 = float(op2)
+    resultado = op1 - op2
     return resultado
-'''
+    
+
     
 
 

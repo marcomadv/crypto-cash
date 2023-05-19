@@ -13,7 +13,7 @@ body{
 footer{
     background-color: rgb(62, 77, 92);
     color:var(--primary-inverse);
+    text-align: center;
     font-size: 0.7em;
     font-weight: bold;
-
 }
