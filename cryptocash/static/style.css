@@ -1,5 +1,17 @@
-header,footer{
-    background-color: grey;
+header{
+    background-color: rgb(141, 154, 167);
+    color:var(--primary-inverse);
+    font-size: 0.7em;
+    font-weight: bold;
+}
+body{
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    margin: 0;
+}
+footer{
+    background-color: rgb(62, 77, 92);
     color:var(--primary-inverse);
     font-size: 0.7em;
     font-weight: bold;

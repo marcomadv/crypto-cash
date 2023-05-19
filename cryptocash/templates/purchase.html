@@ -2,19 +2,25 @@
 
 {% block section %}
 
-<form action="/purchase" method="GET"></form>
-<select name="select" style="width: 400px;">
-    <option value="EUR">EUR</option>
-    <option value="BTC">BTC</option>
-    <option value="ETH">ETH</option>
-  </select>
+<form action="/purchase" method="POST">
+<label for="From">From</label>
+<select id="coinFrom" name="coinFrom" required>
+  <option value="EUR" selected>EUR</option>
+  {%for item in monedas%}
+  <option value="{{item}}">{{item}}</option>
+  {%endfor%}
 
+</select>
+<label for="To">To</label>
+<select id="coinTo" name="coinTo" required>
+  {%for item in criptos%}
+  <option value="{{item}}">{{item}}</option>
+  {%endfor%}
+</select>
+<button type="submit" class="secondary">Registro</button>
+</form>
 
-<form action="/purchase" method="GET"></form>
-<select name="select" style="width: 400px;">
-    <option value="EUR">EUR</option>
-    <option value="BTC">BTC</option>
-    <option value="ETH">ETH</option>
-    </select>
+{{resultado}}
 
 {% endblock %}
+
