@@ -16,6 +16,8 @@ def index():
 @app.route("/purchase", methods=['GET','POST'])
 def compra():
 
+   # dataForm=[{}]
+
     cryptos=["EUR","ETH","BNB","ADA","DOT","BTC","USDT","XRP","SOL","MATIC"]
     coins = coinsFrom()
     cointo2 = "Hola"
@@ -30,8 +32,12 @@ def compra():
         rate = getExchange(APIKEY,coinfrom,cointo)
         print(f"The exchange is: {rate}")
         cointo2 = "Adios"
-    
-    return render_template("purchase.html",monedas=coins, criptos=cryptos,resultado=cointo2)
+        fromq = request.form["fromQ"]
+        print(f"el valor introducido en formQ es: {fromq}")
+        fromto = request.form["fromTo"]
+        print(f"el valor introducido en formTo es: {fromto}")
+
+    return render_template("purchase.html",monedas=coins, criptos=cryptos,resultado=cointo2, pu=rate)
 
 @app.route("/status")
 def estado():
