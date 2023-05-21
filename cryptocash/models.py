@@ -44,7 +44,7 @@ def coinsFrom(): #monedas from
     con.close()
     return datos
 
-def sumFrom(moneda): # suma de monedas from
+def sumFrom(moneda): #suma de la moneda que le indiques en from
     con = sqlite3.connect("data/movimientos.sqlite")
     con.row_factory = lambda cursor, row: row[0]
     cur = con.cursor()
@@ -53,7 +53,7 @@ def sumFrom(moneda): # suma de monedas from
     con.close()
     return float(resultado[0])
 
-def sumTo(moneda):
+def sumTo(moneda): #suma de la moneda que le indiques en to
     con = sqlite3.connect("data/movimientos.sqlite")
     con.row_factory = lambda cursor, row: row[0]
     cur = con.cursor()
@@ -62,14 +62,34 @@ def sumTo(moneda):
     con.close()
     return float(resultado[0])
 
-def sumFromCryptos():
+def sumFromCryptos(): #suma de cryptos en from
     con = sqlite3.connect("data/movimientos.sqlite")
     con.row_factory = lambda cursor, row: row[0]
     cur = con.cursor()
-    res = cur.execute("SELECT sum (cantidad_to) from tabla where moneda_to != 'EUR'")
+    res = cur.execute("SELECT sum (cantidad_from) from tabla where moneda_from != 'EUR'")
     resultado = res.fetchall()
     con.close()
     return float(resultado[0])
+
+def sumToCryptos(): #suma de cryptos en to
+    con = sqlite3.connect("data/movimientos.sqlite")
+    con.row_factory = lambda cursor, row: row[0]
+    cur = con.cursor()
+    res = cur.execute("SELECT sum (cantidad_to) from tabla where moneda_to != {'EUR'}")
+    resultado = res.fetchall()
+    con.close()
+    return float(resultado[0])
+
+def cryptoFrom(): #moneda crypto en from
+    con = sqlite3.connect("data/movimientos.sqlite")
+    con.row_factory = lambda cursor, row: row[0]
+    cur = con.cursor()
+    res = cur.execute("SELECT moneda_from from tabla where moneda_from != 'EUR'")
+    resultado = res.fetchall()
+    con.close()
+    return resultado
+
+
 
 
 
@@ -82,6 +102,12 @@ def getAllRates(apikey,moneda=""): # todos los rates de esta moneda
     r = requests.get(f"https://rest.coinapi.io/v1/exchanrate/{moneda}?apikey={apikey}") 
     datos = r.json()
     return datos
+
+def getExchangeEur(apikey, crypto): #valor de una cripto en EUR
+    r = requests.get(f"https://rest.coinapi.io/v1/exchangerate/{crypto}/EUR?apikey={apikey}")
+    datos = r.json()
+    rate = datos['rate']
+    return rate
 
 def getExchange(apikey,crypto,crypto2): #valor de una cripto o moneda en otra cripto o moneda
     r = requests.get(f"https://rest.coinapi.io/v1/exchangerate/{crypto}/{crypto2}?apikey={apikey}")

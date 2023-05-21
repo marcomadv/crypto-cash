@@ -49,6 +49,17 @@ def estado():
     valor = sumFrom("EUR") - sumTo("EUR")
 
 
+
+    valores = []
+    criptos = cryptoFrom()
+    for i in criptos:  
+        value = getExchangeEur(APIKEY,i)
+        valores.append(value)
+    
+
+
+
+
     
 
 
