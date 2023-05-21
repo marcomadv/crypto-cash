@@ -17,17 +17,19 @@
   <option value="{{item}}">{{item}}</option>
   {%endfor%}
 </select>
-  <label for="fromQ">FromQ:</label>
+  <label for="fromQ">Q From:</label>
   <input type="number" id="fromQ" step="0.01" name="fromQ"><br>
 
-  <label for="fromTo">FromTo:</label>
+  <label for="fromTo">Q to:</label>
   <input type="number" id="fromTo" step="0.05" name="fromTo"><br><br>
+
+  <p>P.U: {{("{:.2f}".format(pu))}} </p>
 
   <button type="submit" class="secondary">Calcular</button>
 </form>
 
 {{resultado}}
-{{("{:.2f}".format(pu))}} 
+
 
 {% endblock %}
 

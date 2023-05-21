@@ -13,7 +13,7 @@ def view_all():
     filas = res.fetchall() #(1,2023-05-05,sueldo,1600)
     columnas = res.description #columnas(id,0,0,0,0,0)
 
-    #objetivo crear una lista de diccionario con filas y columnas
+    #crear lista de diccionario con filas y columnas
     lista_diccionario = []
     
     for f in filas:
@@ -24,7 +24,7 @@ def view_all():
             posicion += 1
         lista_diccionario.append(diccionario)
 
-    con.close() #cerramos la conexion 
+    con.close() 
     return lista_diccionario
 
 def insert(registroForm):
@@ -46,31 +46,33 @@ def coinsFrom(): #monedas from
 
 def sumFrom(moneda): # suma de monedas from
     con = sqlite3.connect("data/movimientos.sqlite")
+    con.row_factory = lambda cursor, row: row[0]
     cur = con.cursor()
     res = cur.execute(f"SELECT sum (cantidad_from) from tabla where moneda_from='{moneda}'")
     resultado = res.fetchall()
     con.close()
-    return resultado
+    return float(resultado[0])
 
 def sumTo(moneda):
     con = sqlite3.connect("data/movimientos.sqlite")
+    con.row_factory = lambda cursor, row: row[0]
     cur = con.cursor()
     res = cur.execute(f"SELECT sum (cantidad_to) from tabla where moneda_to='{moneda}'")
     resultado = res.fetchall()
     con.close()
-    return resultado
+    return float(resultado[0])
 
-#darle una vuelta a esto, no funciona por que los datos son listas
-def balanceCrypto(moneda):
-    op1 = sumFrom(moneda)
-    op1 = float(op1)
-    op2 = sumTo(moneda)
-    op2 = float(op2)
-    resultado = op1 - op2
-    return resultado
-    
+def sumFromCryptos():
+    con = sqlite3.connect("data/movimientos.sqlite")
+    con.row_factory = lambda cursor, row: row[0]
+    cur = con.cursor()
+    res = cur.execute("SELECT sum (cantidad_to) from tabla where moneda_to != 'EUR'")
+    resultado = res.fetchall()
+    con.close()
+    return float(resultado[0])
 
-    
+
+
 
 
 
@@ -98,7 +100,6 @@ def changeCrypto(apikey,q,crypto1, crypto2): # Funcion docu API, cambiar valor d
     rate = datos['rate']
     cambio = int(rate)* q
     return cambio
-
 
 '''
 def getAllCoins(apikey):

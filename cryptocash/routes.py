@@ -21,8 +21,10 @@ def compra():
     cryptos=["EUR","ETH","BNB","ADA","DOT","BTC","USDT","XRP","SOL","MATIC"]
     coins = coinsFrom()
     cointo2 = "Hola"
+
     if request.method == "GET":
-        pass
+  
+        return render_template("purchase.html",monedas = coins, criptos=cryptos,resultado=cointo2,pu = 0)
 
     if request.method == "POST":
         print(request.form)
@@ -37,8 +39,17 @@ def compra():
         fromto = request.form["fromTo"]
         print(f"el valor introducido en formTo es: {fromto}")
 
-    return render_template("purchase.html",monedas=coins, criptos=cryptos,resultado=cointo2, pu=rate)
+    return render_template("purchase.html",monedas=coins, criptos=cryptos,resultado=cointo2, pu = rate)
 
 @app.route("/status")
 def estado():
-    return render_template("/status.html")
+
+    suma = sumFrom("EUR")
+    rec = sumTo("EUR")
+    valor = sumFrom("EUR") - sumTo("EUR")
+
+
+    
+
+
+    return render_template("/status.html",invertido=suma,recuperado = rec, valorcompra = valor)
