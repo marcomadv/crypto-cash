@@ -26,6 +26,7 @@ for i in criptos:
     crypto2 = sumTo(i)
     print(crypto1)
     print(crypto2)
+print(criptos)
 
 
 
