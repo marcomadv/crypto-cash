@@ -7,11 +7,17 @@ from cryptocash.models import *
 
 @app.route("/")
 def index():
+
     datos = view_all()
+    
+    if datos == "":
+        return render_template("index.html", data=False)
+    else:
+
     #cripto = getAllRates(APIKEY,moneda="BTC")
     #cripto = getExchange(APIKEY,crypto="ETH")
 
-    return render_template("index.html", data=datos)
+        return render_template("index.html", data=datos, page="/" )
 
 @app.route("/purchase", methods=['GET','POST'])
 def compra():
@@ -24,7 +30,7 @@ def compra():
 
     if request.method == "GET":
   
-        return render_template("purchase.html",monedas = coins, criptos=cryptos,resultado=cointo2,pu = 0)
+        return render_template("purchase.html",monedas = coins, criptos=cryptos,resultado=cointo2,pu = 0, page="/purchase")
 
     if request.method == "POST":
         print(request.form)
@@ -39,16 +45,14 @@ def compra():
         fromto = request.form["fromTo"]
         print(f"el valor introducido en formTo es: {fromto}")
 
-    return render_template("purchase.html",monedas=coins, criptos=cryptos,resultado=cointo2, pu = rate)
+    return render_template("purchase.html",monedas=coins, criptos=cryptos,resultado=cointo2, pu = rate, page="/purchase")
 
 @app.route("/status")
 def estado():
 
-    suma = sumFrom("EUR")
-    rec = sumTo("EUR")
+    suma = sumFrom("EUR")   
+    rec = sumTo("EUR")  
     valor = sumFrom("EUR") - sumTo("EUR")
-
-
 
     valores = []
     criptos = cryptoFrom()
@@ -58,9 +62,4 @@ def estado():
     
 
 
-
-
-    
-
-
-    return render_template("/status.html",invertido=suma,recuperado = rec, valorcompra = valor)
+    return render_template("/status.html",invertido=suma,recuperado = rec, valorcompra = valor, page = "/status")
