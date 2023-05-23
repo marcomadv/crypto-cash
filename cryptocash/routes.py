@@ -25,30 +25,32 @@ def compra():
 
     cryptos=["EUR","ETH","BNB","ADA","DOT","BTC","USDT","XRP","SOL","MATIC"]
     coins = coinsFrom()
-    cointo2 = "Hola"
 
     if request.method == "GET":
   
-        return render_template("purchase.html",monedas = coins, criptos=cryptos,resultado=cointo2,pu = 0, page="/purchase")
+        return render_template("purchase.html",monedas = coins, criptos=cryptos,pu = 0, page="/purchase")
 
     if request.method == "POST":
         print(request.form)
         coinfrom = request.form.get("coinFrom")
         cointo = request.form.get("coinTo")
         print(f"Coin from {coinfrom} coin to {cointo}")
-        rate = getExchange(APIKEY,coinfrom,cointo)
+        rate = getExchangeEur(APIKEY,coinfrom)
         print(f"The exchange is: {rate}")
-        cointo2 = "Adios"
+        
         fromq = request.form.get("fromQ")
+        fromq = float(fromq)
         print(f"el valor introducido en formQ es: {fromq}")
         fromto = request.form.get("fromTo")
         print(f"el valor introducido en formTo es: {fromto}")
+       
         hora = now.time()
         fecha = now.date()
         print(hora)
         print(fecha)
+        cambio = changeCrypto(APIKEY,fromq,coinfrom,cointo)
 
-    return render_template("purchase.html",monedas=coins, criptos=cryptos,resultado=cointo2, pu = rate, page="/purchase")
+    return render_template("purchase.html",monedas=coins, criptos=cryptos, pu = rate, qto=cambio, page="/purchase")
 
 @app.route("/status")
 def estado():

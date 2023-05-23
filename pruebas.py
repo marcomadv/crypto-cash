@@ -13,7 +13,7 @@ crypto = cryptoFrom()
 valor = getExchangeEur(APIKEY,crypto)
 print(valor)
 
-'''
+
 valores = []
 criptos = cryptoFrom()
 
@@ -27,6 +27,11 @@ for i in criptos:
     print(crypto1)
     print(crypto2)
 print(criptos)
+'''
+prueba = changeCrypto(APIKEY,30000,'EUR','BTC')
+print(prueba)
+
+
 
 
 

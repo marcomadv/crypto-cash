@@ -26,16 +26,13 @@
   <input type="number" id="fromQ" step="0.01" name="fromQ"><br>
 </div>
 <button type="submit" class="secondary">Calcular</button>
-  <label for="fromTo">Q to:</label>
-  <input type="number" id="fromTo" step="0.05" name="fromTo"><br><br>
-<!---en q to, es cuanto se puede comprar de esa moneda con la cantidad euros por lo que debera ser un parrafo o algo asi-->
 
-  <p>P.U: {{("{:.2f}".format(pu))}} </p>
+  <!--<p>P.U: {{("{:.2f}".format(pu))}} </p>-->
 
-  
+  <label for="Qto">Q to:<input type="text"  id="Qto" name="Qto" placeholder="{{qto}}" readonly></label>
+  <label for="PU">P.U :<input type="text"  id="PU" name="PU" placeholder="{{pu}}" readonly></label>
+
 </form>
-
-{{resultado}}
 
 
 {% endblock %}

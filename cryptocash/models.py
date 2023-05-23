@@ -2,18 +2,18 @@ import sqlite3
 import requests
 
 
-########################## BBDD ################################
+
+            ########################## BASE DATOS ################################
 
 def view_all():
-    con = sqlite3.connect("data/movimientos.sqlite") # conectar con base de datos
-    cur = con.cursor() #cursor para poder ejecutar las querys
+    con = sqlite3.connect("data/movimientos.sqlite") 
+    cur = con.cursor() 
 
-    res = cur.execute("select * from tabla;")  #query o peticion a la base de datos
+    res = cur.execute("select * from tabla;") 
+    filas = res.fetchall() 
+    columnas = res.description 
 
-    filas = res.fetchall() #(1,2023-05-05,sueldo,1600)
-    columnas = res.description #columnas(id,0,0,0,0,0)
-
-    #crear lista de diccionario con filas y columnas
+    #lista de diccionario con filas y columnas
     lista_diccionario = []
     
     for f in filas:
@@ -30,10 +30,10 @@ def view_all():
 def insert(registroForm):
     con = sqlite3.connect("data/movimientos.sqlite")
     cur = con.cursor()
-    res = cur.execute("INSERT INTO tabla(date,time,moneda_from,cantidad_from,moneda_to,cantidad_to) VALUES(?,?,?,?,?,?)", registroForm) #hacer insert en base datos de los datos añadidos en formulario
+    res = cur.execute("INSERT INTO tabla(date,time,moneda_from,cantidad_from,moneda_to,cantidad_to) VALUES(?,?,?,?,?,?)", registroForm)
     
-    con.commit() #validacion de registros
-    con.close() #cierre de conexion
+    con.commit()
+    con.close() 
 
 def coinsFrom(): #monedas from
     con = sqlite3.connect("data/movimientos.sqlite")
@@ -96,7 +96,7 @@ def cryptoFrom(): #moneda crypto en from
 
 
 
-############################## API #########################
+           ############################## API #################################
 
 def getAllRates(apikey,moneda=""): # todos los rates de esta moneda
     r = requests.get(f"https://rest.coinapi.io/v1/exchanrate/{moneda}?apikey={apikey}") 
@@ -124,43 +124,6 @@ def changeCrypto(apikey,q,crypto1, crypto2): # Funcion docu API, cambiar valor d
     r = requests.get(f"https://rest.coinapi.io/v1/exchangerate/{crypto1}/{crypto2}?apikey={apikey}")
     datos = r.json()
     rate = datos['rate']
-    cambio = int(rate)* q
+    cambio = float(rate)* q
     return cambio
 
-'''
-def getAllCoins(apikey):
-
-    lista_criptos = []
-    lista_no_criptos = []
-
-    r = requests.get(f"https://rest.coinapi.io/v1/assets/?apikey={apikey}")
-
-    if r.status_code != 200:
-        raise Exception("Error en consulta codigo de error:{}".format(r.status_code))
-    
-    lista_general = r.json() #16379 registros
-
-
-    for item in lista_general:
-        if item["type_is_crypto"] == 1:
-            lista_criptos.append(item["asset_id"])
-        else:
-            lista_no_criptos.append(item["asset_id"])
-
-
-class Exchange: 
-    def __init__(self, cripto):
-        self.moneda_cripto = cripto
-        self.rate = None
-        self.status_code = None
-        self.time = None
-    def getExchange(self, apikey):
-        r = requests.get(f"https://rest.coinapi.io/v1/exchangerate/{self.moneda_cripto}/EUR?apikey={apikey}")
-        respuesta = r.json()
-        self.status_code = r.status_code
-        if r.status_code == 200:
-            self.rate = respuesta['rate']
-            self.time = respuesta['time']
-        else:
-            print(f"status: {r.status_code}, error: {respuesta['error']}")
-'''
