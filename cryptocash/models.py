@@ -91,11 +91,6 @@ def cryptoFrom(): #moneda crypto en from
 
 
 
-
-
-
-
-
            ############################## API #################################
 
 def getAllRates(apikey,moneda=""): # todos los rates de esta moneda

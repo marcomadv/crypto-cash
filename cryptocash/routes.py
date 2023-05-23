@@ -13,8 +13,6 @@ def index():
     datos = view_all()
     registros = len(datos)
     
-    #cripto = getAllRates(APIKEY,moneda="BTC")
-    #cripto = getExchange(APIKEY,crypto="ETH")
 
     return render_template("index.html", data=datos, page="/",registros = registros)
 
