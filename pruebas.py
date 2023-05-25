@@ -1,6 +1,8 @@
 from cryptocash.models import *
 from cryptocash.config import APIKEY
+from datetime import datetime
 
+now = datetime.now()
 '''
 suma = sumFrom("EUR")
 print(f"la suma de EUR es; {suma}")
@@ -28,8 +30,9 @@ for i in criptos:
     print(crypto2)
 print(criptos)
 '''
-prueba = changeCrypto(APIKEY,30000,'EUR','BTC')
-print(prueba)
+#prueba = changeCrypto(APIKEY,30000,'EUR','BTC')
+#print(prueba)
+
 
 
 

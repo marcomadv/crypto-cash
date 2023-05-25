@@ -3,37 +3,34 @@
 {% block section %}
 <br>
 <form action="/purchase" method="POST">
-<div class = "grid">
-<label for="From">From</label>
-<select id="coinFrom" name="coinFrom" required>
-  <option value="EUR" selected>EUR</option>
-  {%for item in monedas%}
-  <option value="{{item}}">{{item}}</option>
-  {%endfor%}
-</select>
-</div>
-<div class = "grid">
+  <div class = "grid">
+    <label for="From">From</label>
+      <select id="coinFrom" name="coinFrom" required>
+        <option value="EUR" selected>EUR</option>
+          {%for item in monedas%}
+        <option value="{{item}}">{{item}}</option>
+        {%endfor%}
+      </select>
+  </div>
+  <div class = "grid">
+    <label for="To">To</label>
+      <select id="coinTo" name="coinTo" required>
+        {%for item in criptos%}
+      <option value="{{item}}">{{item}}</option>
+      {%endfor%}
+      </select>
+  </div>
+  <div class = "grid">
+    <label for="fromQ">Q From:</label>
+    <input type="number" id="fromQ" step="0.01" name="fromQ"><br>
+  </div>
+    <input type="submit" name="action" class ="secondary" value="Calcular">
 
-<label for="To">To</label>
-<select id="coinTo" name="coinTo" required>
-  {%for item in criptos%}
-  <option value="{{item}}">{{item}}</option>
-  {%endfor%}
-</select>
-</div>
-<div class = "grid">
-  <label for="fromQ">Q From:</label>
-  <input type="number" id="fromQ" step="0.01" name="fromQ"><br>
-</div>
-<button type="submit" class="secondary">Calcular</button>
 
-  <!--<p>P.U: {{("{:.2f}".format(pu))}} </p>-->
-
-  <label for="Qto">Q to:<input type="text"  id="Qto" name="Qto" placeholder="{{qto}}" readonly></label>
-  <label for="PU">P.U :<input type="text"  id="PU" name="PU" placeholder="{{pu}}" readonly></label>
-
+    <label for="Qto">Q to:<input type="text"  id="Qto" name="Qto" placeholder="{{qto}}" readonly></label>
+    <label for="PU">P.U :<input type="text"  id="PU" name="PU" placeholder="{{pu}}" readonly></label>
+    <input type="submit" name="action" class ="secondary" value="Registrar">
 </form>
 
 
 {% endblock %}
-
