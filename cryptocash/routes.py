@@ -36,9 +36,10 @@ def compra():
 
         if request.form['action'] == 'Calcular':
             
-            coinfrom = request.form.get("coinFrom")           
+            
+            coinfrom = request.form.get("coinFrom")        
             cointo = request.form.get("coinTo")
-            rate = getExchangeEur(APIKEY,cointo)           
+            rate = getExchangeEur(APIKEY,cointo)          
             fromq = request.form.get("fromQ")
             fromq = float(fromq)
             unitprice = rate   #precio unitario de la crypto ( si se divide el Qfrom / rate , da lo mismo que Qto)           
@@ -47,7 +48,14 @@ def compra():
             return render_template("purchase.html",monedas = coins, criptos=cryptos, pu=unitprice, qto=change, page="/purchase")
         else:
             
-            return "Aqui hago registro en base datos"
+            time = now.time()
+            date = now.date()
+            
+
+            
+            
+            print(request.form)
+            return render_template("purchase.html",monedas = coins, criptos=cryptos, page="/purchase")
 
 
         '''

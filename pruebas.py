@@ -33,8 +33,16 @@ print(criptos)
 #prueba = changeCrypto(APIKEY,30000,'EUR','BTC')
 #print(prueba)
 
+date="2023-05-25"
+time = "13:22:43"
+coinfrom = "EUR"
+fromq= 2000
+cointo = "ETH"
+fromto = 1.20
 
+datos=[date,time,coinfrom,fromq,cointo,fromto]
 
+insert(datos)
 
 
 

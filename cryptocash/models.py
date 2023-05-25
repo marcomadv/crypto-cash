@@ -27,10 +27,10 @@ def view_all():
     con.close() 
     return lista_diccionario
 
-def insert(registroForm):
+def insert(datosForm):
     con = sqlite3.connect("data/movimientos.sqlite")
     cur = con.cursor()
-    res = cur.executemany("INSERT INTO tabla(date,time,moneda_from,cantidad_from,moneda_to,cantidad_to) VALUES(?,?,?,?,?,?)", registroForm)
+    res = cur.execute("INSERT INTO tabla(date,time,moneda_from,cantidad_from,moneda_to,cantidad_to) VALUES(?,?,?,?,?,?)", datosForm)
     
     con.commit()
     con.close() 
