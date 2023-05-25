@@ -26,11 +26,11 @@ def compra():
     hour = now.time()
     cryptos=["EUR","ETH","BNB","ADA","DOT","BTC","USDT","XRP","SOL","MATIC"]
     coins = coinsFrom()
-    form = MovementsForm()
+    
 
     if request.method == "GET":
   
-        return render_template("purchase.html",monedas = coins, criptos=cryptos,pu = 0, page="/purchase", form=form)
+        return render_template("purchase.html",monedas = coins, criptos=cryptos,pu = 0, page="/purchase")
 
     if request.method == "POST":
 
@@ -44,7 +44,7 @@ def compra():
             unitprice = rate   #precio unitario de la crypto ( si se divide el Qfrom / rate , da lo mismo que Qto)           
             change = changeCrypto(APIKEY,fromq,coinfrom,cointo)
             
-            return render_template("purchase.html",monedas = coins, criptos=cryptos, pu=unitprice, qto=change, page="/purchase",form = form)
+            return render_template("purchase.html",monedas = coins, criptos=cryptos, pu=unitprice, qto=change, page="/purchase")
         else:
             
             return "Aqui hago registro en base datos"
@@ -69,8 +69,6 @@ def compra():
         print(hora)
         print(fecha)
         '''
-
-    #return render_template("purchase.html",monedas=coins, criptos=cryptos, pu = rate, qto=cambio, page="/purchase")
 
 @app.route("/status")
 def estado():
