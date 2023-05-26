@@ -44,18 +44,20 @@ fromto = 1.20
 datos=[date,time,coinfrom,fromq,cointo,fromto]
 
 insert(datos)
-'''
 
-valores = []
-criptos = cryptoFrom()
-valores.append(criptos)
-'''
+
+valores = 0
+criptos = coinsTo()
+
 for i in criptos:  
     value = getExchangeEur(APIKEY,i)
     valores.append(value)
-'''
+
 print(valores)
-print(valores[0][0])
+'''
+
+valorescripto = cryptoValues()
+print(valorescripto)
     
     
 

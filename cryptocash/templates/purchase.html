@@ -2,17 +2,24 @@
 
 {% block section %}
 <br>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes style="color: red;">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<br>
 <form action="/purchase" method="POST">
   <div class = "grid">
     <label for="From">From</label>
-      <select id="coinFrom" name="coinFrom" required>
-        {% if registros == 0%}
-          <option value="EUR" selected>EUR</option>
-        {% else %}
+      <select id="coinFrom" name="coinFrom" required>        
           {% for item in monedas%}
           <option value="{{item}}">{{item}}</option>
-          {%endfor%}
-        {%endif%}
+          {%endfor%}        
         <option placeholder="{{coinfrom}}" selected>{{coinfrom}}</option>
       </select>
   </div>

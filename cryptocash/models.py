@@ -9,7 +9,7 @@ def view_all():
     con = sqlite3.connect("data/movimientos.sqlite") 
     cur = con.cursor() 
 
-    res = cur.execute("select * from tabla;") 
+    res = cur.execute("SELECT * from tabla ORDER by date DESC, time DESC") 
     filas = res.fetchall() 
     columnas = res.description 
 
@@ -40,6 +40,15 @@ def coinsFrom(): #monedas from
     con.row_factory = lambda cursor, row: row[0]
     cur = con.cursor()
     res = cur.execute("SELECT DISTINCT moneda_from from tabla") 
+    datos = res.fetchall()
+    con.close()
+    return datos
+
+def coinsTo(): #cryptos en to
+    con = sqlite3.connect("data/movimientos.sqlite")
+    con.row_factory = lambda cursor, row: row[0]
+    cur = con.cursor()
+    res = cur.execute("SELECT DISTINCT moneda_to from tabla where moneda_to != 'EUR'") 
     datos = res.fetchall()
     con.close()
     return datos
@@ -91,6 +100,35 @@ def cryptoFrom(): #moneda crypto en from
     res = cur.execute("SELECT moneda_from from tabla where moneda_from != 'EUR'")
     resultado = res.fetchall()
     con.close()
+    return resultado
+
+def cryptoValues():
+    con = sqlite3.connect("data/movimientos.sqlite")
+    cur = con.cursor()
+    res = cur.execute("""
+        select moneda, sum (cantidad ) from (
+            select moneda_from moneda, sum (cantidad_from*-1) cantidad  from tabla GROUP by moneda_from
+            UNION ALL
+            select moneda_to moneda, sum (cantidad_to) cantidad  from tabla GROUP by moneda_to
+        )WHERE moneda != "EUR"
+        group by moneda 
+    """)
+    resultado = res.fetchall()
+    return resultado
+
+def quantityForCrypto(crypto): #cantidad de una crypto concreta
+    con = sqlite3.connect("data/movimientos.sqlite")
+    con.row_factory = lambda cursor, row: row[0]
+    cur = con.cursor()
+    res = cur.execute(f"""
+        select sum (cantidad ) from (
+            select moneda_from moneda, sum (cantidad_from*-1) cantidad  from tabla GROUP by moneda_from
+            UNION ALL
+            select moneda_to moneda, sum (cantidad_to) cantidad  from tabla GROUP by moneda_to
+        )WHERE moneda == "{crypto}"
+        group by moneda 
+    """)
+    resultado = res.fetchall()
     return resultado
 
 

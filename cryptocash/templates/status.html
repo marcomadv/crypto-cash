@@ -4,10 +4,16 @@
 
 <br><br><u><h4>Estado de la inversion</h4></u><br><br>
 <div class="container">
-    <li><p>Invertido: &nbsp;&nbsp;&nbsp; {{invertido}} €</p></li>
-    <li><p>Recuperado: &nbsp;&nbsp;&nbsp; {{recuperado}} €</p></li>
-    <li><p>Valor de compra: &nbsp;&nbsp;&nbsp; {{valorcompra}} €</p></li>
-    <li><p>Valor actual: {{estado}} </p></li>
+    <li><p>Invertido: &nbsp;&nbsp;&nbsp; {{("{:.2f}".format(invertido))}} €</p></li>
+    <li><p>Recuperado: &nbsp;&nbsp;&nbsp; {{("{:.2f}".format(recuperado))}} €</p></li>
+    <li><p>Valor de compra: &nbsp;&nbsp;&nbsp; {{("{:.2f}".format(valorcompra))}} €</p></li>
+    <li><p>Valor actual: &nbsp;&nbsp;&nbsp; {{("{:.2f}".format(estado))}} €</p></li>
+    <li><p>Balance:</p>
+        {% if balance >= 0 %}
+        <p style="color: green; font-size: 24px; font-weight: 600;"> &nbsp;&nbsp;&nbsp; {{("{:.2f}".format(balance))}} €</p></li>
+        {% else %}
+        <p style="color: red; font-size: 24px; font-weight: 600;"> &nbsp;&nbsp;&nbsp; {{("{:.2f}".format(balance))}} €</p></li>
+        {% endif %}
 </div>
 <br><br>
 <a href="/" role="button" class="secondary">Inicio</a>
