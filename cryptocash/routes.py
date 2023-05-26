@@ -24,10 +24,7 @@ def compra():
     
     if request.method == "GET":
 
-        datos = view_all()
-        registros = len(datos)
-  
-        return render_template("purchase.html",monedas = coins, criptos=cryptos, registros=registros, page="/purchase")
+        return render_template("purchase.html",monedas = coins, criptos=cryptos, page="/purchase")
 
     if request.method == "POST":
 
@@ -35,24 +32,28 @@ def compra():
             
             coinfrom = request.form["coinFrom"]       
             cointo = request.form["coinTo"]
-            rate = getExchangeEur(APIKEY,cointo)          
+            rate = 0        
             fromq = request.form["fromQ"]
-            fromq1 = float(fromq)
-            unitprice = rate   #precio unitario de la crypto            
+            fromq1 = float(fromq)            
             change = 0
+
             if coinfrom =="EUR" and cointo !="BTC": 
                 flash("Con 'EUR' solo puedes hacer compra de 'BTC'")
+                return render_template("purchase.html",monedas = coins, criptos=cryptos, page="/purchase")
 
             elif cointo =="EUR" and coinfrom !="BTC":    
                 flash("Solo se pueden intercambiar por 'EUR' la criptomoneda 'BTC'")
+                return render_template("purchase.html",monedas = coins, criptos=cryptos, page="/purchase")
 
             elif coinfrom !="EUR" and fromq1 > quantityForCrypto(coinfrom)[0]:       
                 flash("No hay suficiente cantidad de la moneda seleccionada")
+                return render_template("purchase.html",monedas = coins, criptos=cryptos, page="/purchase")
 
-            else:            
+            else:  
+                rate = getExchangeEur(APIKEY,cointo)          
                 change = changeCrypto(APIKEY,fromq1,coinfrom,cointo)
             
-            return render_template("purchase.html",coinfrom =request.form["coinFrom"],cointo=request.form["coinTo"],fromq=fromq1,pu=unitprice,change=change, page="/purchase")
+            return render_template("purchase.html",coinfrom =request.form["coinFrom"],cointo=request.form["coinTo"],fromq=fromq1,pu=rate,change=change, page="/purchase")
         else:
 
             if request.form["Qto"] == '':
