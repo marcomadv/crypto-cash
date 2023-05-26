@@ -30,13 +30,43 @@ def compra():
 
     if request.method == "GET":
   
-        return render_template("purchase.html",monedas = coins, criptos=cryptos,pu = 0, page="/purchase")
+        return render_template("purchase.html",monedas = coins, criptos=cryptos, page="/purchase")
 
     if request.method == "POST":
 
         if request.form['action'] == 'Calcular':
             
+
             
+            coinfrom = request.form["coinFrom"]       
+            cointo = request.form["coinTo"]
+            rate = getExchangeEur(APIKEY,cointo)          
+            fromq = request.form["fromQ"]
+            fromq1 = float(fromq)
+            unitprice = rate   #precio unitario de la crypto ( si se divide el Qfrom / rate , da lo mismo que Qto)           
+            change = changeCrypto(APIKEY,fromq1,coinfrom,cointo)
+
+            preview={
+                "coinfrom" : request.form["coinFrom"],        
+                "cointo" : request.form["coinTo"],          
+                "fromq" : fromq1,
+                "unitprice" : rate,           
+                "change" : change
+            }
+
+            print(request.form)
+            
+            return render_template("purchase.html",coinfrom =request.form["coinFrom"],cointo=request.form["coinTo"],fromq=fromq1,pu=unitprice,change=change, page="/purchase")
+        else:
+            
+            time = now.time()
+            date = now.date()
+           
+
+            print(request.form)
+            return redirect("/")
+
+            '''
             coinfrom = request.form.get("coinFrom")        
             cointo = request.form.get("coinTo")
             rate = getExchangeEur(APIKEY,cointo)          
@@ -44,39 +74,8 @@ def compra():
             fromq = float(fromq)
             unitprice = rate   #precio unitario de la crypto ( si se divide el Qfrom / rate , da lo mismo que Qto)           
             change = changeCrypto(APIKEY,fromq,coinfrom,cointo)
-            
-            return render_template("purchase.html",monedas = coins, criptos=cryptos, pu=unitprice, qto=change, page="/purchase")
-        else:
-            
-            time = now.time()
-            date = now.date()
-            
+            '''
 
-            
-            
-            print(request.form)
-            return render_template("purchase.html",monedas = coins, criptos=cryptos, page="/purchase")
-
-
-        '''
-        print(request.form)
-        coinfrom = request.form.get("coinFrom")
-        cointo = request.form.get("coinTo")
-        print(f"Coin from {coinfrom} coin to {cointo}")
-        rate = getExchangeEur(APIKEY,coinfrom)
-        print(f"The exchange is: {rate}")
-        cambio = changeCrypto(APIKEY,fromq,coinfrom,cointo)
-        fromq = request.form.get("fromQ")
-        fromq = float(fromq)
-        print(f"el valor introducido en fromQ es: {fromq}")
-        fromto = request.form.get("fromTo")
-        print(f"el valor introducido en formTo es: {fromto}")
-        unitprice = (fromq / cambio)
-        hora = now.time()
-        fecha = now.date()
-        print(hora)
-        print(fecha)
-        '''
 
 @app.route("/status")
 def estado():

@@ -10,6 +10,7 @@
           {%for item in monedas%}
         <option value="{{item}}">{{item}}</option>
         {%endfor%}
+        <option placeholder="{{coinfrom}}" selected>{{coinfrom}}</option>
       </select>
   </div>
   <div class = "grid">
@@ -18,17 +19,18 @@
         {%for item in criptos%}
       <option value="{{item}}">{{item}}</option>
       {%endfor%}
+      <option placeholder="{{cointo}}" selected>{{cointo}}</option>
       </select>
   </div>
   <div class = "grid">
     <label for="fromQ">Q From:</label>
-    <input type="number" id="fromQ" step="0.01" name="fromQ"><br>
+    <input type="number" id="fromQ" step="0.01" name="fromQ" value="{{fromq}}" placeholder="{{fromq}}"><br>
   </div>
     <input type="submit" name="action" class ="secondary" value="Calcular">
 
 
-    <label for="Qto">Q to:<input type="text"  id="Qto" name="Qto" placeholder="{{qto}}" readonly></label>
-    <label for="PU">P.U :<input type="text"  id="PU" name="PU" placeholder="{{pu}}" readonly></label>
+    <label for="Qto">Q to:<input type="text"  id="Qto" name="Qto" value="{{change}}" placeholder="{{change}}" readonly></label>
+    <label for="PU">P.U :<input type="text"  id="PU" name="PU" value ="{{pu}}" placeholder="{{pu}}" readonly></label>
     <input type="submit" name="action" class ="secondary" value="Registrar">
 </form>
 
