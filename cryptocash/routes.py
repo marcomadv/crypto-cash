@@ -4,8 +4,7 @@ from cryptocash.models import *
 from cryptocash.config import APIKEY
 from cryptocash.models import *
 from cryptocash.forms import MovementsForm
-from datetime import datetime
-now=datetime.now()
+from time import strftime
 
 
 @app.route("/")
@@ -22,8 +21,6 @@ def index():
 @app.route("/purchase", methods=['GET','POST'])
 def compra():
     
-    date = now.date()
-    hour = now.time()
     cryptos=["EUR","ETH","BNB","ADA","DOT","BTC","USDT","XRP","SOL","MATIC"]
     coins = coinsFrom()
     
@@ -56,15 +53,22 @@ def compra():
                 "change" : change
             }
 
-            print(request.form)
-            
             return render_template("purchase.html",coinfrom =request.form["coinFrom"],cointo=request.form["coinTo"],fromq=fromq1,pu=unitprice,change=change, page="/purchase")
         else:
             
-            time = now.time()
-            date = now.date()
            
+            date = strftime("%Y-%m-%d")
+            time = strftime("%H:%M:%S")
+            
+            datosForm=[date,               
+                        time,
+                        request.form["coinFrom"],
+                        request.form["fromQ"],
+                        request.form["coinTo"],
+                        request.form["Qto"]]
 
+            insert(datosForm)
+            
             print(request.form)
             flash("Transaccion registrada correctamente")
             return redirect("/")
