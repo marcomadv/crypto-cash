@@ -53,6 +53,7 @@ def compra():
                 "change" : change
             }
 
+
             return render_template("purchase.html",coinfrom =request.form["coinFrom"],cointo=request.form["coinTo"],fromq=fromq1,pu=unitprice,change=change, page="/purchase")
         else:
             
@@ -72,16 +73,6 @@ def compra():
             print(request.form)
             flash("Transaccion registrada correctamente")
             return redirect("/")
-
-            '''
-            coinfrom = request.form.get("coinFrom")        
-            cointo = request.form.get("coinTo")
-            rate = getExchangeEur(APIKEY,cointo)          
-            fromq = request.form.get("fromQ")
-            fromq = float(fromq)
-            unitprice = rate   #precio unitario de la crypto ( si se divide el Qfrom / rate , da lo mismo que Qto)           
-            change = changeCrypto(APIKEY,fromq,coinfrom,cointo)
-            '''
 
 
 @app.route("/status")
