@@ -3,7 +3,6 @@ from flask import render_template,request, redirect, flash
 from cryptocash.models import *
 from cryptocash.config import APIKEY
 from cryptocash.models import *
-from cryptocash.forms import MovementsForm
 from time import strftime
 
 
@@ -13,8 +12,6 @@ def index():
     datos = view_all()
     registros = len(datos)
 
-    
-    
 
     return render_template("index.html", data=datos, page="/",registros = registros)
 
@@ -25,7 +22,6 @@ def compra():
     coins = coinsTo()
     coins.append("EUR")
     
-
     if request.method == "GET":
 
         datos = view_all()
@@ -42,7 +38,7 @@ def compra():
             rate = getExchangeEur(APIKEY,cointo)          
             fromq = request.form["fromQ"]
             fromq1 = float(fromq)
-            unitprice = rate   #precio unitario de la crypto ( si se divide el Qfrom / rate , da lo mismo que Qto)           
+            unitprice = rate   #precio unitario de la crypto            
             change = 0
             if coinfrom =="EUR" and cointo !="BTC": 
                 flash("Con 'EUR' solo puedes hacer compra de 'BTC'")
@@ -92,8 +88,6 @@ def estado():
     rec = sumTo("EUR")  
     purchaseValue = sumFrom("EUR") - sumTo("EUR")
    
-
-
     currentValue = 0
     valorescripto = cryptoValues()
 

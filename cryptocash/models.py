@@ -2,8 +2,7 @@ import sqlite3
 import requests
 
 
-
-                ########################## DATABASE ################################
+    ############################################ DATABASE ##################################################
 
 def view_all():
     con = sqlite3.connect("data/movimientos.sqlite") 
@@ -133,7 +132,7 @@ def quantityForCrypto(crypto): #cantidad de una crypto concreta
 
 
 
-                ############################## API REST #################################
+    ################################################ API REST ###################################################
 
 
 def getAllRates(apikey,moneda=""): # todos los rates de esta moneda
