@@ -29,8 +29,11 @@ def compra():
     
 
     if request.method == "GET":
+
+        datos = view_all()
+        registros = len(datos)
   
-        return render_template("purchase.html",monedas = coins, criptos=cryptos, page="/purchase")
+        return render_template("purchase.html",monedas = coins, criptos=cryptos, registros=registros, page="/purchase")
 
     if request.method == "POST":
 
