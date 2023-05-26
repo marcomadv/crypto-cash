@@ -1,5 +1,5 @@
 from cryptocash import app
-from flask import render_template,request, redirect
+from flask import render_template,request, redirect, flash
 from cryptocash.models import *
 from cryptocash.config import APIKEY
 from cryptocash.models import *
@@ -37,7 +37,6 @@ def compra():
         if request.form['action'] == 'Calcular':
             
 
-            
             coinfrom = request.form["coinFrom"]       
             cointo = request.form["coinTo"]
             rate = getExchangeEur(APIKEY,cointo)          
@@ -64,6 +63,7 @@ def compra():
            
 
             print(request.form)
+            flash("Transaccion registrada correctamente")
             return redirect("/")
 
             '''
