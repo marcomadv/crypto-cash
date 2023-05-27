@@ -53,12 +53,15 @@ def compra():
             return render_template("purchase.html",monedas = coins, criptos=cryptos,coinfrom =request.form["coinFrom"],cointo=request.form["coinTo"],fromq=fromq1,pu=rate,change=change, page="/purchase")
         else:
 
-            if request.form["Qto"] == '':
+            fromq = request.form["fromQ"]          
+            fromq1 = float(fromq)
 
-                fromq = request.form["fromQ"]
-                fromq1 = float(fromq)
-
+            if request.form["Qto"] == '':               
                 flash("Debe calcular los valores antes de registro")
+                return render_template("purchase.html",coinfrom =request.form["coinFrom"],cointo=request.form["coinTo"],monedas = coins, criptos=cryptos,fromq=fromq1, page="/purchase")
+
+            elif request.form["Qto"] == "0":
+                flash("Debe calcular los valores de una combinacion de monedas autorizada")
                 return render_template("purchase.html",coinfrom =request.form["coinFrom"],cointo=request.form["coinTo"],monedas = coins, criptos=cryptos,fromq=fromq1, page="/purchase")
             else:
 
