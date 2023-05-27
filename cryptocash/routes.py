@@ -12,7 +12,6 @@ def index():
     datos = view_all()
     registros = len(datos)
 
-
     return render_template("index.html", data=datos, page="/",registros = registros)
 
 @app.route("/purchase", methods=['GET','POST'])
