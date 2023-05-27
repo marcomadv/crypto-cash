@@ -9,7 +9,9 @@
     <li><p>Valor de compra: &nbsp;&nbsp;&nbsp; {{("{:.2f}".format(valorcompra))}} €</p></li>
     <li><p>Valor actual: &nbsp;&nbsp;&nbsp; {{("{:.2f}".format(estado))}} €</p></li>
     <li><p>Balance:</p>
-        {% if balance >= 0 %}
+        {% if balance == 0 %}
+        <p style="font-size: 24px; font-weight: 600;"> &nbsp;&nbsp;&nbsp; {{("{:.2f}".format(balance))}} €</p></li>
+        {% elif balance > 0 %}
         <p style="color: green; font-size: 24px; font-weight: 600;"> &nbsp;&nbsp;&nbsp; {{("{:.2f}".format(balance))}} €</p></li>
         {% else %}
         <p style="color: red; font-size: 24px; font-weight: 600;"> &nbsp;&nbsp;&nbsp; {{("{:.2f}".format(balance))}} €</p></li>
