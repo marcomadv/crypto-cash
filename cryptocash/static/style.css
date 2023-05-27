@@ -33,3 +33,7 @@ p{
 h5{
     text-align: center;
 }
+.not-active { 
+    pointer-events: none; 
+    cursor: default; 
+} 
