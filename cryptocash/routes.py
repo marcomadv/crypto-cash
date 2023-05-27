@@ -56,13 +56,16 @@ def compra():
             fromq = request.form["fromQ"]          
             fromq1 = float(fromq)
 
-            if request.form["Qto"] == '':               
+            if request.form["Qto"] == '': 
+
                 flash("Debe calcular los valores antes de registro")
                 return render_template("purchase.html",coinfrom =request.form["coinFrom"],cointo=request.form["coinTo"],monedas = coins, criptos=cryptos,fromq=fromq1, page="/purchase")
 
             elif request.form["Qto"] == "0":
+
                 flash("Debe calcular los valores de una combinacion de monedas autorizada")
                 return render_template("purchase.html",coinfrom =request.form["coinFrom"],cointo=request.form["coinTo"],monedas = coins, criptos=cryptos,fromq=fromq1, page="/purchase")
+            
             else:
 
                 date = strftime("%Y-%m-%d")
@@ -99,5 +102,4 @@ def estado():
     
     balance = currentValue - purchaseValue
     
-
     return render_template("status.html",invertido=suma,recuperado = rec, valorcompra = purchaseValue, estado=currentValue,balance = balance, page = "/status")
